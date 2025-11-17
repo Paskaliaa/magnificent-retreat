@@ -1,17 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import { ChevronDown, Menu, X, Calendar, MapPin, Clock, Star, Phone, Mail, ArrowRight, Check, User, Heart, Sparkles } from 'lucide-react';
+// magnificent-retreat.jsx
+// This version is browser-compatible for use with <script type="text/babel">
 
-const MagnificentRetreat = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeAccordion, setActiveAccordion] = useState(null);
-  const [selectedPlan, setSelectedPlan] = useState('regular');
-  const [formData, setFormData] = useState({
+function MagnificentRetreat() {
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [activeAccordion, setActiveAccordion] = React.useState(null);
+  const [selectedPlan, setSelectedPlan] = React.useState('regular');
+  const [formData, setFormData] = React.useState({
     name: '',
     email: '',
     phone: '',
     accommodation: 'standard',
     paymentPlan: 'full',
     message: ''
+  });
+
+  // Re-run Lucide icon rendering after each render
+  React.useEffect(() => {
+    if (window.lucide && typeof window.lucide.createIcons === 'function') {
+      window.lucide.createIcons();
+    }
   });
 
   // Smooth scroll to section
@@ -35,7 +42,11 @@ const MagnificentRetreat = () => {
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="md:hidden text-purple"
           >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {isMenuOpen ? (
+              <i data-lucide="x" className="w-6 h-6" />
+            ) : (
+              <i data-lucide="menu" className="w-6 h-6" />
+            )}
           </button>
 
           {/* Desktop Navigation */}
@@ -110,18 +121,18 @@ const MagnificentRetreat = () => {
           </div>
           <div className="mt-12 flex flex-wrap justify-center gap-8 text-sm md:text-base">
             <div className="flex items-center gap-2">
-              <Calendar className="text-gold" size={20} />
+              <i data-lucide="calendar" className="text-gold w-5 h-5" />
               <span className="font-medium">3 Transformative Days</span>
             </div>
             <div className="flex items-center gap-2">
-              <MapPin className="text-gold" size={20} />
+              <i data-lucide="map-pin" className="text-gold w-5 h-5" />
               <span className="font-medium">Hotel Brackenhurst, Limuru</span>
             </div>
           </div>
         </div>
       </div>
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <ChevronDown className="text-white/80" size={32} />
+        <i data-lucide="chevron-down" className="text-white/80 w-8 h-8" />
       </div>
     </section>
   );
@@ -142,7 +153,7 @@ const MagnificentRetreat = () => {
             <div className="text-center">
               <div className="mb-6">
                 <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gold/10">
-                  <Heart className="text-gold" size={36} />
+                  <i data-lucide="heart" className="text-gold w-9 h-9" />
                 </div>
               </div>
               <h3 className="text-xl font-bold mb-3 text-purple uppercase tracking-wide">Release</h3>
@@ -152,7 +163,7 @@ const MagnificentRetreat = () => {
             <div className="text-center">
               <div className="mb-6">
                 <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gold/10">
-                  <Sparkles className="text-gold" size={36} />
+                  <i data-lucide="sparkles" className="text-gold w-9 h-9" />
                 </div>
               </div>
               <h3 className="text-xl font-bold mb-3 text-purple uppercase tracking-wide">Rediscover</h3>
@@ -162,7 +173,7 @@ const MagnificentRetreat = () => {
             <div className="text-center">
               <div className="mb-6">
                 <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gold/10">
-                  <Star className="text-gold" size={36} />
+                  <i data-lucide="star" className="text-gold w-9 h-9" />
                 </div>
               </div>
               <h3 className="text-xl font-bold mb-3 text-purple uppercase tracking-wide">Rise</h3>
@@ -202,23 +213,23 @@ const MagnificentRetreat = () => {
                 <h4 className="font-bold text-lg mb-3 text-purple">Areas of Expertise:</h4>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-2">
-                    <Check className="text-gold mt-1" size={20} />
+                    <i data-lucide="check" className="text-gold w-5 h-5 mt-1" />
                     <span>Professional Certified Coach</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Check className="text-gold mt-1" size={20} />
+                    <i data-lucide="check" className="text-gold w-5 h-5 mt-1" />
                     <span>Activating Meaningful Change</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Check className="text-gold mt-1" size={20} />
+                    <i data-lucide="check" className="text-gold w-5 h-5 mt-1" />
                     <span>Change Management</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Check className="text-gold mt-1" size={20} />
+                    <i data-lucide="check" className="text-gold w-5 h-5 mt-1" />
                     <span>Chief Coach at Alabastron Inpowerment Ltd</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Check className="text-gold mt-1" size={20} />
+                    <i data-lucide="check" className="text-gold w-5 h-5 mt-1" />
                     <span>Holistic & Transformative Life Coaching</span>
                   </li>
                 </ul>
@@ -231,7 +242,7 @@ const MagnificentRetreat = () => {
             
             <div className="order-1 md:order-2">
               <div className="facilitator-image-placeholder">
-                <User className="text-white/50" size={80} />
+                <i data-lucide="user" className="text-white/70 w-20 h-20" />
                 <p className="text-white/70 mt-4">Facilitator Photo</p>
               </div>
             </div>
@@ -253,25 +264,25 @@ const MagnificentRetreat = () => {
             <div className="agenda-card">
               <div className="flex items-start gap-4">
                 <div className="agenda-day">
-                  <span className="text-3xl font-bold text-gold">1</span>
+                  <span className="text-3xl font-bold text-white">1</span>
                 </div>
                 <div className="flex-1">
                   <h3 className="text-2xl font-bold text-purple mb-4">Day One: Release</h3>
                   <div className="space-y-3">
                     <div className="agenda-item">
-                      <Clock size={16} className="text-gold" />
+                      <i data-lucide="clock" className="text-gold w-4 h-4" />
                       <span className="font-semibold">Morning:</span> Welcome & Opening Circle
                     </div>
                     <div className="agenda-item">
-                      <Clock size={16} className="text-gold" />
+                      <i data-lucide="clock" className="text-gold w-4 h-4" />
                       <span className="font-semibold">Mid-Morning:</span> Guided Meditation Session
                     </div>
                     <div className="agenda-item">
-                      <Clock size={16} className="text-gold" />
+                      <i data-lucide="clock" className="text-gold w-4 h-4" />
                       <span className="font-semibold">Afternoon:</span> Release Workshop - Letting Go of What No Longer Serves
                     </div>
                     <div className="agenda-item">
-                      <Clock size={16} className="text-gold" />
+                      <i data-lucide="clock" className="text-gold w-4 h-4" />
                       <span className="font-semibold">Evening:</span> Group Discussion & Reflection
                     </div>
                   </div>
@@ -283,25 +294,25 @@ const MagnificentRetreat = () => {
             <div className="agenda-card">
               <div className="flex items-start gap-4">
                 <div className="agenda-day">
-                  <span className="text-3xl font-bold text-gold">2</span>
+                  <span className="text-3xl font-bold text-white">2</span>
                 </div>
                 <div className="flex-1">
                   <h3 className="text-2xl font-bold text-purple mb-4">Day Two: Rediscover</h3>
                   <div className="space-y-3">
                     <div className="agenda-item">
-                      <Clock size={16} className="text-gold" />
+                      <i data-lucide="clock" className="text-gold w-4 h-4" />
                       <span className="font-semibold">Morning:</span> Sunrise Meditation
                     </div>
                     <div className="agenda-item">
-                      <Clock size={16} className="text-gold" />
+                      <i data-lucide="clock" className="text-gold w-4 h-4" />
                       <span className="font-semibold">Mid-Morning:</span> Walk in the Tea Plantations
                     </div>
                     <div className="agenda-item">
-                      <Clock size={16} className="text-gold" />
+                      <i data-lucide="clock" className="text-gold w-4 h-4" />
                       <span className="font-semibold">Afternoon:</span> Joy & Purpose Workshop
                     </div>
                     <div className="agenda-item">
-                      <Clock size={16} className="text-gold" />
+                      <i data-lucide="clock" className="text-gold w-4 h-4" />
                       <span className="font-semibold">Evening:</span> Sacred Circle - Sharing & Connection
                     </div>
                   </div>
@@ -313,25 +324,25 @@ const MagnificentRetreat = () => {
             <div className="agenda-card">
               <div className="flex items-start gap-4">
                 <div className="agenda-day">
-                  <span className="text-3xl font-bold text-gold">3</span>
+                  <span className="text-3xl font-bold text-white">3</span>
                 </div>
                 <div className="flex-1">
                   <h3 className="text-2xl font-bold text-purple mb-4">Day Three: Rise</h3>
                   <div className="space-y-3">
                     <div className="agenda-item">
-                      <Clock size={16} className="text-gold" />
+                      <i data-lucide="clock" className="text-gold w-4 h-4" />
                       <span className="font-semibold">Morning:</span> Integration Meditation
                     </div>
                     <div className="agenda-item">
-                      <Clock size={16} className="text-gold" />
+                      <i data-lucide="clock" className="text-gold w-4 h-4" />
                       <span className="font-semibold">Mid-Morning:</span> Stepping Into Your Magnificence Workshop
                     </div>
                     <div className="agenda-item">
-                      <Clock size={16} className="text-gold" />
+                      <i data-lucide="clock" className="text-gold w-4 h-4" />
                       <span className="font-semibold">Afternoon:</span> Creating Your Action Plan
                     </div>
                     <div className="agenda-item">
-                      <Clock size={16} className="text-gold" />
+                      <i data-lucide="clock" className="text-gold w-4 h-4" />
                       <span className="font-semibold">Evening:</span> Closing Ceremony & Celebration
                     </div>
                   </div>
@@ -386,19 +397,19 @@ const MagnificentRetreat = () => {
               </div>
               <ul className="space-y-3 mb-8">
                 <li className="flex items-start gap-2">
-                  <Check className="text-gold mt-1" size={20} />
+                  <i data-lucide="check" className="text-gold w-5 h-5 mt-1" />
                   <span>Shared accommodation (2 per room)</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="text-gold mt-1" size={20} />
+                  <i data-lucide="check" className="text-gold w-5 h-5 mt-1" />
                   <span>All meals included</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="text-gold mt-1" size={20} />
+                  <i data-lucide="check" className="text-gold w-5 h-5 mt-1" />
                   <span>All workshops & activities</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="text-gold mt-1" size={20} />
+                  <i data-lucide="check" className="text-gold w-5 h-5 mt-1" />
                   <span>Retreat materials</span>
                 </li>
               </ul>
@@ -419,27 +430,27 @@ const MagnificentRetreat = () => {
               </div>
               <ul className="space-y-3 mb-8">
                 <li className="flex items-start gap-2">
-                  <Check className="text-gold mt-1" size={20} />
+                  <i data-lucide="check" className="text-gold w-5 h-5 mt-1" />
                   <span>Private accommodation</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="text-gold mt-1" size={20} />
+                  <i data-lucide="check" className="text-gold w-5 h-5 mt-1" />
                   <span>All meals included</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="text-gold mt-1" size={20} />
+                  <i data-lucide="check" className="text-gold w-5 h-5 mt-1" />
                   <span>All workshops & activities</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="text-gold mt-1" size={20} />
+                  <i data-lucide="check" className="text-gold w-5 h-5 mt-1" />
                   <span>Retreat materials</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="text-gold mt-1" size={20} />
+                  <i data-lucide="check" className="text-gold w-5 h-5 mt-1" />
                   <span>Spa treatment included</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="text-gold mt-1" size={20} />
+                  <i data-lucide="check" className="text-gold w-5 h-5 mt-1" />
                   <span>1-on-1 coaching session</span>
                 </li>
               </ul>
@@ -459,31 +470,31 @@ const MagnificentRetreat = () => {
               </div>
               <ul className="space-y-3 mb-8">
                 <li className="flex items-start gap-2">
-                  <Check className="text-gold mt-1" size={20} />
+                  <i data-lucide="check" className="text-gold w-5 h-5 mt-1" />
                   <span>Luxury suite accommodation</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="text-gold mt-1" size={20} />
+                  <i data-lucide="check" className="text-gold w-5 h-5 mt-1" />
                   <span>All meals + special dining</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="text-gold mt-1" size={20} />
+                  <i data-lucide="check" className="text-gold w-5 h-5 mt-1" />
                   <span>All workshops & activities</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="text-gold mt-1" size={20} />
+                  <i data-lucide="check" className="text-gold w-5 h-5 mt-1" />
                   <span>Premium retreat materials</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="text-gold mt-1" size={20} />
+                  <i data-lucide="check" className="text-gold w-5 h-5 mt-1" />
                   <span>Daily spa treatments</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="text-gold mt-1" size={20} />
+                  <i data-lucide="check" className="text-gold w-5 h-5 mt-1" />
                   <span>3 coaching sessions</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="text-gold mt-1" size={20} />
+                  <i data-lucide="check" className="text-gold w-5 h-5 mt-1" />
                   <span>Airport transfers</span>
                 </li>
               </ul>
@@ -562,11 +573,11 @@ const MagnificentRetreat = () => {
                     className="w-full text-left flex justify-between items-center p-6"
                   >
                     <h3 className="text-lg font-semibold text-purple pr-4">{faq.question}</h3>
-                    <ChevronDown 
-                      className={`text-gold transition-transform ${
+                    <i
+                      data-lucide="chevron-down"
+                      className={`text-gold w-6 h-6 transition-transform ${
                         activeAccordion === index ? 'rotate-180' : ''
-                      }`} 
-                      size={24} 
+                      }`}
                     />
                   </button>
                   {activeAccordion === index && (
@@ -587,7 +598,6 @@ const MagnificentRetreat = () => {
   const RegistrationSection = () => {
     const handleSubmit = (e) => {
       e.preventDefault();
-      // Handle form submission
       console.log('Form submitted:', formData);
       alert('Thank you for your registration! We will contact you shortly.');
     };
@@ -707,7 +717,7 @@ const MagnificentRetreat = () => {
               <div className="flex flex-col md:flex-row gap-4">
                 <button type="submit" className="btn-gold flex-1">
                   Complete Registration
-                  <ArrowRight className="ml-2 inline" size={20} />
+                  <i data-lucide="arrow-right" className="ml-2 inline w-5 h-5" />
                 </button>
                 <a href="#" className="btn-outline flex-1 text-center">
                   Book a Discovery Call First
@@ -776,15 +786,15 @@ const MagnificentRetreat = () => {
             <h5 className="font-semibold mb-4">Contact</h5>
             <ul className="space-y-2">
               <li className="flex items-center gap-2">
-                <Mail size={16} className="text-gold" />
+                <i data-lucide="mail" className="text-gold w-4 h-4" />
                 <span className="text-gray-400">info@magnificent-retreat.com</span>
               </li>
               <li className="flex items-center gap-2">
-                <Phone size={16} className="text-gold" />
+                <i data-lucide="phone" className="text-gold w-4 h-4" />
                 <span className="text-gray-400">+254 xxx xxx xxx</span>
               </li>
               <li className="flex items-center gap-2">
-                <MapPin size={16} className="text-gold" />
+                <i data-lucide="map-pin" className="text-gold w-4 h-4" />
                 <span className="text-gray-400">Limuru, Kenya</span>
               </li>
             </ul>
@@ -793,7 +803,6 @@ const MagnificentRetreat = () => {
           <div>
             <h5 className="font-semibold mb-4">Follow Us</h5>
             <div className="flex gap-4">
-              {/* Social media icons placeholder */}
               <a href="#" className="text-gray-400 hover:text-gold transition-colors">FB</a>
               <a href="#" className="text-gray-400 hover:text-gold transition-colors">IG</a>
               <a href="#" className="text-gray-400 hover:text-gold transition-colors">TW</a>
@@ -810,22 +819,8 @@ const MagnificentRetreat = () => {
           </p>
         </div>
       </div>
-    </footer>
-  );
 
-  return (
-    <div className="magnificent-retreat">
-      <Navigation />
-      <HeroSection />
-      <AboutSection />
-      <FacilitatorSection />
-      <AgendaSection />
-      <PricingSection />
-      <FAQSection />
-      <RegistrationSection />
-      <NewsletterSection />
-      <Footer />
-      
+      {/* Extra styling block (same as before, but works fine in browser) */}
       <style jsx>{`
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;500;600;700&display=swap');
 
@@ -853,14 +848,12 @@ const MagnificentRetreat = () => {
           font-weight: 700;
         }
 
-        /* Utility Classes */
         .text-gold { color: var(--gold); }
         .text-purple { color: var(--purple); }
         .text-red { color: var(--red); }
         .bg-gold { background-color: var(--gold); }
         .bg-purple { background-color: var(--purple); }
 
-        /* Navigation Styles */
         .nav-link {
           color: #333;
           transition: color 0.3s;
@@ -874,7 +867,6 @@ const MagnificentRetreat = () => {
           color: var(--gold);
         }
 
-        /* Button Styles */
         .btn-primary {
           background-color: var(--purple);
           color: white;
@@ -958,7 +950,6 @@ const MagnificentRetreat = () => {
           color: var(--purple);
         }
 
-        /* Hero Section */
         .hero-section {
           height: 100vh;
           position: relative;
@@ -978,10 +969,6 @@ const MagnificentRetreat = () => {
           display: flex;
           align-items: center;
           justify-content: center;
-          /* To add actual image, replace background above with: */
-          /* background-image: url('your-image-url.jpg'); */
-          /* background-size: cover; */
-          /* background-position: center; */
         }
 
         .placeholder-content {
@@ -1007,7 +994,6 @@ const MagnificentRetreat = () => {
           justify-content: center;
         }
 
-        /* Section Styles */
         .section-title {
           font-size: 2.5rem;
           color: var(--purple);
@@ -1030,34 +1016,10 @@ const MagnificentRetreat = () => {
           background: var(--gold);
         }
 
-        /* Gradient Background */
         .bg-gradient-soft {
           background: #f8f9fa;
         }
 
-        /* Feature Cards */
-        .feature-card {
-          background: white;
-          padding: 2rem;
-          border-radius: 8px;
-          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-          transition: transform 0.3s, box-shadow 0.3s;
-          text-align: center;
-        }
-        
-        .feature-card:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
-        }
-
-        .feature-icon {
-          display: inline-flex;
-          padding: 1rem;
-          background: rgba(196, 147, 86, 0.1);
-          border-radius: 50%;
-        }
-
-        /* Facilitator Image */
         .facilitator-image-placeholder {
           background: linear-gradient(135deg, var(--purple), var(--purple-light));
           height: 400px;
@@ -1069,7 +1031,6 @@ const MagnificentRetreat = () => {
           box-shadow: 0 10px 40px rgba(70, 33, 95, 0.2);
         }
 
-        /* Agenda Cards */
         .agenda-card {
           background: white;
           padding: 2rem;
@@ -1087,7 +1048,6 @@ const MagnificentRetreat = () => {
           align-items: center;
           justify-content: center;
           flex-shrink: 0;
-          color: white;
         }
 
         .agenda-item {
@@ -1097,7 +1057,6 @@ const MagnificentRetreat = () => {
           padding: 0.5rem 0;
         }
 
-        /* Pricing Cards */
         .pricing-card {
           background: white;
           padding: 2.5rem 2rem;
@@ -1140,7 +1099,6 @@ const MagnificentRetreat = () => {
           gap: 0.5rem;
         }
 
-        /* FAQ Styles */
         .faq-item {
           background: white;
           border-radius: 8px;
@@ -1154,7 +1112,6 @@ const MagnificentRetreat = () => {
           border-left-color: var(--gold);
         }
 
-        /* Form Styles */
         .form-group {
           display: flex;
           flex-direction: column;
@@ -1184,7 +1141,6 @@ const MagnificentRetreat = () => {
           box-shadow: 0 0 0 3px rgba(196, 147, 86, 0.1);
         }
 
-        /* Animations */
         @keyframes fadeIn {
           from { opacity: 0; transform: translateY(20px); }
           to { opacity: 1; transform: translateY(0); }
@@ -1213,7 +1169,6 @@ const MagnificentRetreat = () => {
           animation: bounce 2s infinite;
         }
 
-        /* Mobile Responsive */
         @media (max-width: 768px) {
           .hero-section {
             height: 100vh;
@@ -1233,13 +1188,25 @@ const MagnificentRetreat = () => {
           }
         }
 
-        /* Smooth Scroll */
         html {
           scroll-behavior: smooth;
         }
       `}</style>
+    </footer>
+  );
+
+  return (
+    <div className="magnificent-retreat">
+      <Navigation />
+      <HeroSection />
+      <AboutSection />
+      <FacilitatorSection />
+      <AgendaSection />
+      <PricingSection />
+      <FAQSection />
+      <RegistrationSection />
+      <NewsletterSection />
+      <Footer />
     </div>
   );
-};
-
-export default MagnificentRetreat;
+}
