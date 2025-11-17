@@ -99,3 +99,5 @@ This project is proprietary to Magnificent Retreat. All rights reserved.
 ---
 
 **Built with 💜 for empowering women leaders across Africa**
+# magnificent-retreat
+Website for Magnificent Women's Renewal Retrea
