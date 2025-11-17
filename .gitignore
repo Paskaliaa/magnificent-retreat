@@ -1,0 +1,71 @@
+# Operating System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor Files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependencies (if you later add npm)
+node_modules/
+bower_components/
+
+# Build files
+dist/
+build/
+*.min.js
+*.min.css
+
+# Temporary files
+*.tmp
+*.temp
+.tmp/
+.temp/
+
+# Personal notes
+notes.txt
+todo.txt
+personal/
+
+# Backup files
+*.backup
+*.bak
+backup/
+
+# Environment variables (for future use)
+.env
+.env.local
+.env.development
+.env.production
+
+# Cache
+.cache/
+.parcel-cache/
+
+# macOS
+.AppleDouble
+.LSOverride
+Icon
+._*
+
+# Windows
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+
+# Linux
+.directory
+.Trash-*

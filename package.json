@@ -1,0 +1,46 @@
+{
+  "name": "magnificent-retreat",
+  "version": "1.0.0",
+  "description": "A luxurious mobile-first website for Magnificent Women's Renewal Retreat in Kenya",
+  "main": "index.html",
+  "scripts": {
+    "start": "Open index.html in your browser",
+    "serve": "Use VS Code Live Server extension to run locally"
+  },
+  "keywords": [
+    "retreat",
+    "women",
+    "wellness",
+    "kenya",
+    "transformation",
+    "react",
+    "website"
+  ],
+  "author": "Laimani Bidali - Alabastron Network Trust",
+  "license": "Proprietary",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/magnificent-retreat.git"
+  },
+  "homepage": "https://yourusername.github.io/magnificent-retreat",
+  "technologies": {
+    "frontend": [
+      "React 18",
+      "Tailwind CSS",
+      "Lucide Icons"
+    ],
+    "fonts": [
+      "Google Fonts - Playfair Display",
+      "Google Fonts - Poppins"
+    ],
+    "deployment": "GitHub Pages"
+  },
+  "project-info": {
+    "client": "Magnificent Retreat",
+    "location": "Hotel Brackenhurst, Limuru, Kenya",
+    "duration": "3 Days",
+    "target-audience": "Women Leaders 40+ across Africa",
+    "facilitator": "Laimani Bidali",
+    "organization": "Alabastron Network Trust"
+  }
+}
