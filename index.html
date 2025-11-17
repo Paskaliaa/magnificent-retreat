@@ -1,181 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Magnificent - The Ultimate Renewal Retreat for Women</title>
-    
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Join Magnificent, a 3-day transformative retreat for women leaders in Kenya. Release, rediscover, and rise into your full radiance with life coach Laimani Bidali.">
-    <meta name="keywords" content="women's retreat, renewal retreat, transformation, Limuru Kenya, Laimani Bidali, women leaders, personal growth, meditation, workshops">
-    <meta name="author" content="Magnificent Retreat">
-    
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Magnificent - The Ultimate Renewal Retreat for Women">
-    <meta property="og:description" content="A 3-day sacred space for women ready to release, rediscover, and rise. Join us at Hotel Brackenhurst, Limuru, Kenya.">
-    <meta property="og:image" content="/path-to-image.jpg">
-    <meta property="og:url" content="https://magnificent-retreat.com">
-    <meta property="og:type" content="website">
-    
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Magnificent - The Ultimate Renewal Retreat for Women">
-    <meta name="twitter:description" content="A 3-day sacred space for women ready to release, rediscover, and rise.">
-    <meta name="twitter:image" content="/path-to-image.jpg">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    
-    <!-- React and Babel -->
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        gold: '#c49356',
-                        'gold-light': '#dbb889',
-                        purple: '#46215f',
-                        'purple-light': '#6b3a8a',
-                        red: '#8b1d1d'
-                    },
-                    fontFamily: {
-                        'serif': ['Playfair Display', 'serif'],
-                        'sans': ['Poppins', 'sans-serif']
-                    },
-                    animation: {
-                        'fadeIn': 'fadeIn 1s ease-out',
-                        'slideDown': 'slideDown 0.3s ease-out',
-                        'bounce': 'bounce 2s infinite'
-                    }
-                }
-            }
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+  />
+  <title>Magnificent - The Ultimate Renewal Retreat for Women</title>
+
+  <!-- SEO Meta Tags -->
+  <meta
+    name="description"
+    content="Join Magnificent, a 3-day transformative retreat for women leaders in Kenya. Release, rediscover, and rise into your full radiance with life coach Laimani Bidali."
+  />
+  <meta
+    name="keywords"
+    content="women's retreat, renewal retreat, transformation, Limuru Kenya, Laimani Bidali, women leaders, personal growth, meditation, workshops"
+  />
+  <meta name="author" content="Magnificent Retreat" />
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Magnificent - The Ultimate Renewal Retreat for Women" />
+  <meta
+    property="og:description"
+    content="A 3-day sacred space for women ready to release, rediscover, and rise. Join us at Hotel Brackenhurst, Limuru, Kenya."
+  />
+  <meta property="og:image" content="/path-to-image.jpg" />
+  <meta property="og:url" content="https://magnificent-retreat.com" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Magnificent - The Ultimate Renewal Retreat for Women" />
+  <meta
+    name="twitter:description"
+    content="A 3-day sacred space for women ready to release, rediscover, and rise."
+  />
+  <meta name="twitter:image" content="/path-to-image.jpg" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+  <!-- React and Babel -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- Lucide Icons -->
+  <script defer src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            gold: '#c49356',
+            'gold-light': '#dbb889',
+            purple: '#46215f',
+            'purple-light': '#6b3a8a',
+            red: '#8b1d1d'
+          },
+          fontFamily: {
+            serif: ['Playfair Display', 'serif'],
+            sans: ['Poppins', 'sans-serif']
+          }
         }
-    </script>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        /* Base Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Poppins', sans-serif;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-        
-        h1, h2, h3 {
-            font-family: 'Playfair Display', serif;
-        }
-        
-        /* Animations */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes slideDown {
-            from {
-                max-height: 0;
-                opacity: 0;
-            }
-            to {
-                max-height: 500px;
-                opacity: 1;
-            }
-        }
-        
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            40% {
-                transform: translateY(-10px);
-            }
-            60% {
-                transform: translateY(-5px);
-            }
-        }
-        
-        /* Loading State */
-        .loading {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: linear-gradient(135deg, #46215f, #8b1d1d);
-            color: white;
-            font-size: 24px;
-            font-family: 'Playfair Display', serif;
-        }
-        
-        /* Smooth Scroll */
-        html {
-            scroll-behavior: smooth;
-        }
-        
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #c49356, #46215f);
-            border-radius: 5px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(135deg, #dbb889, #6b3a8a);
-        }
-    </style>
+      }
+    };
+  </script>
+
+  <!-- Google Fonts -->
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  />
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* Loading Placeholder */
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #46215f, #8b1d1d);
+      color: white;
+      font-size: 24px;
+      font-family: 'Playfair Display', serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
 </head>
 <body>
-    <div id="root">
-        <div class="loading">Loading Magnificent...</div>
-    </div>
-    
-    <!-- Load React Component -->
-    <script type="text/babel" src="magnificent-retreat.jsx"></script>
-    <script type="text/babel">
-        // Initialize Lucide icons
-        if (typeof lucide !== 'undefined') {
-            lucide.createIcons();
-        }
-        
-        // Render the React app
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<MagnificentRetreat />);
-    </script>
-    
-    <!-- Analytics (placeholder) -->
-    <script>
-        // Google Analytics or other tracking code can go here
-    </script>
+  <div id="root">
+    <div class="loading">Loading Magnificent...</div>
+  </div>
+
+  <!-- Load Main React Component -->
+  <script type="text/babel" src="magnificent-retreat.jsx"></script>
+
+  <!-- Initialize the App & Icons -->
+  <script type="text/babel">
+    // Boot the React App
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<MagnificentRetreat />);
+
+    // Initialize Lucide Icons if available
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    }
+  </script>
+
+  <!-- Analytics placeholder -->
+  <script>
+    // Google Analytics or other tracking code
+  </script>
 </body>
 </html>
