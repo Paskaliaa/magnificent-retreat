@@ -1,10 +1,10 @@
-// magnificent-retreat.jsx
-// This version is browser-compatible for use with <script type="text/babel">
+
 
 function MagnificentRetreat() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [activeAccordion, setActiveAccordion] = React.useState(null);
   const [selectedPlan, setSelectedPlan] = React.useState('regular');
+  const [isScrolled, setIsScrolled] = React.useState(false);
   const [formData, setFormData] = React.useState({
     name: '',
     email: '',
@@ -21,26 +21,78 @@ function MagnificentRetreat() {
     }
   });
 
+  // Handle scroll to change navbar appearance
+  React.useEffect(() => {
+    const handleScroll = () => {
+      const heroSection = document.getElementById('home');
+      if (heroSection) {
+        const heroHeight = heroSection.offsetHeight;
+        const scrollPosition = window.scrollY || window.pageYOffset;
+        setIsScrolled(scrollPosition > heroHeight - 100);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check initial state
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   // Smooth scroll to section
-  const scrollToSection = (sectionId) => {
+  const scrollToSection = (sectionId, e) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
       setIsMenuOpen(false);
     }
+    return false;
   };
 
   // Navigation Component
   const Navigation = () => (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/98 backdrop-blur-md shadow-sm">
+    <nav 
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled 
+          ? 'bg-white shadow-md' 
+          : 'bg-transparent'
+      }`}
+      style={isScrolled ? {} : {backdropFilter: 'blur(0px)'}}
+    >
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-5">
-          <div className="text-2xl font-bold text-purple tracking-wider uppercase">Magnificent</div>
+          <div className="flex items-center gap-3">
+            <div className="logo-icon-small">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`transition-colors duration-300 ${isScrolled ? "text-gold" : "text-gold"}`} style={isScrolled ? {} : {filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'}}>
+                <path d="M12 2L2 7L12 12L22 7L12 2Z"></path>
+                <path d="M2 17L12 22L22 17"></path>
+                <path d="M2 12L12 17L22 12"></path>
+              </svg>
+            </div>
+            <div 
+              className={`text-xl font-bold tracking-wider uppercase transition-all duration-300 ${
+                isScrolled ? 'text-purple' : 'text-white'
+              }`}
+              style={isScrolled ? {} : {textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)'}}
+            >
+              Magnificent
+            </div>
+          </div>
           
           {/* Mobile Menu Button */}
           <button 
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden text-purple"
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setIsMenuOpen(!isMenuOpen);
+            }}
+            className={`md:hidden transition-colors duration-300 ${isScrolled ? 'text-purple' : 'text-white'}`}
           >
             {isMenuOpen ? (
               <i data-lucide="x" className="w-6 h-6" />
@@ -51,26 +103,26 @@ function MagnificentRetreat() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <button onClick={() => scrollToSection('home')} className="nav-link">Home</button>
-            <button onClick={() => scrollToSection('about')} className="nav-link">About</button>
-            <button onClick={() => scrollToSection('facilitator')} className="nav-link">Facilitator</button>
-            <button onClick={() => scrollToSection('agenda')} className="nav-link">Agenda</button>
-            <button onClick={() => scrollToSection('pricing')} className="nav-link">Pricing</button>
-            <button onClick={() => scrollToSection('faq')} className="nav-link">FAQ</button>
-            <button onClick={() => scrollToSection('register')} className="btn-primary-nav">Reserve Your Spot</button>
+            <button type="button" onClick={(e) => scrollToSection('home', e)} className={`nav-link ${isScrolled ? '' : 'nav-link-hero'}`}>Home</button>
+            <button type="button" onClick={(e) => scrollToSection('about', e)} className={`nav-link ${isScrolled ? '' : 'nav-link-hero'}`}>About</button>
+            <button type="button" onClick={(e) => scrollToSection('facilitator', e)} className={`nav-link ${isScrolled ? '' : 'nav-link-hero'}`}>Facilitator</button>
+            <button type="button" onClick={(e) => scrollToSection('agenda', e)} className={`nav-link ${isScrolled ? '' : 'nav-link-hero'}`}>Agenda</button>
+            <button type="button" onClick={(e) => scrollToSection('pricing', e)} className={`nav-link ${isScrolled ? '' : 'nav-link-hero'}`}>Pricing</button>
+            <button type="button" onClick={(e) => scrollToSection('faq', e)} className={`nav-link ${isScrolled ? '' : 'nav-link-hero'}`}>FAQ</button>
+            <button type="button" onClick={(e) => scrollToSection('register', e)} className={`btn-primary-nav ${isScrolled ? '' : 'btn-primary-nav-hero'}`}>Reserve Your Spot</button>
           </div>
         </div>
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden pb-5 animate-slideDown">
-            <button onClick={() => scrollToSection('home')} className="block w-full text-left py-3 nav-link">Home</button>
-            <button onClick={() => scrollToSection('about')} className="block w-full text-left py-3 nav-link">About</button>
-            <button onClick={() => scrollToSection('facilitator')} className="block w-full text-left py-3 nav-link">Facilitator</button>
-            <button onClick={() => scrollToSection('agenda')} className="block w-full text-left py-3 nav-link">Agenda</button>
-            <button onClick={() => scrollToSection('pricing')} className="block w-full text-left py-3 nav-link">Pricing</button>
-            <button onClick={() => scrollToSection('faq')} className="block w-full text-left py-3 nav-link">FAQ</button>
-            <button onClick={() => scrollToSection('register')} className="btn-primary-nav w-full mt-3">Reserve Your Spot</button>
+          <div className={`md:hidden pb-5 animate-slideDown ${isScrolled ? 'bg-white' : 'bg-black/20 backdrop-blur-md rounded-lg mt-2'}`}>
+            <button type="button" onClick={(e) => scrollToSection('home', e)} className={`block w-full text-left py-3 nav-link ${isScrolled ? '' : 'nav-link-hero'}`}>Home</button>
+            <button type="button" onClick={(e) => scrollToSection('about', e)} className={`block w-full text-left py-3 nav-link ${isScrolled ? '' : 'nav-link-hero'}`}>About</button>
+            <button type="button" onClick={(e) => scrollToSection('facilitator', e)} className={`block w-full text-left py-3 nav-link ${isScrolled ? '' : 'nav-link-hero'}`}>Facilitator</button>
+            <button type="button" onClick={(e) => scrollToSection('agenda', e)} className={`block w-full text-left py-3 nav-link ${isScrolled ? '' : 'nav-link-hero'}`}>Agenda</button>
+            <button type="button" onClick={(e) => scrollToSection('pricing', e)} className={`block w-full text-left py-3 nav-link ${isScrolled ? '' : 'nav-link-hero'}`}>Pricing</button>
+            <button type="button" onClick={(e) => scrollToSection('faq', e)} className={`block w-full text-left py-3 nav-link ${isScrolled ? '' : 'nav-link-hero'}`}>FAQ</button>
+            <button type="button" onClick={(e) => scrollToSection('register', e)} className={`btn-primary-nav w-full mt-3 ${isScrolled ? '' : 'btn-primary-nav-hero'}`}>Reserve Your Spot</button>
           </div>
         )}
       </div>
@@ -80,15 +132,12 @@ function MagnificentRetreat() {
   // Hero Section
   const HeroSection = () => (
     <section id="home" className="hero-section">
-      <div className="hero-image-placeholder">
-        <div className="placeholder-content">
-          <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white/30">
-            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-            <circle cx="8.5" cy="8.5" r="1.5"></circle>
-            <polyline points="21 15 16 10 5 21"></polyline>
-          </svg>
-          <p className="text-white/50 mt-4 text-lg">Hero Background Image</p>
-        </div>
+      <div className="hero-image-container">
+        <img 
+          src="images/women.jpg" 
+          alt="Magnificent Retreat - Women's Transformation Journey"
+          className="hero-image"
+        />
       </div>
       <div className="hero-overlay"></div>
       <div className="container mx-auto px-4 h-full flex items-center justify-center">
@@ -112,10 +161,13 @@ function MagnificentRetreat() {
             The Ultimate Renewal Retreat for Women
           </p>
           <div className="flex flex-col md:flex-row gap-4 justify-center mb-8">
-            <button onClick={() => scrollToSection('register')} className="btn-gold">
+            <button type="button" onClick={(e) => scrollToSection('register', e)} className="btn-gold">
               Reserve Your Spot
             </button>
-            <a href="#" className="btn-outline">
+            <a 
+              href="mailto:renewingself@alabastron.org?subject=Discovery Call - Magnificent Retreat&body=Hello, I would like to book a discovery call about the Magnificent Retreat."
+              className="btn-outline"
+            >
               Book a Discovery Call
             </a>
           </div>
@@ -131,9 +183,14 @@ function MagnificentRetreat() {
           </div>
         </div>
       </div>
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+      <button 
+        type="button"
+        onClick={(e) => scrollToSection('about', e)}
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer hover:opacity-80 transition-opacity"
+        aria-label="Scroll to next section"
+      >
         <i data-lucide="chevron-down" className="text-white/80 w-8 h-8" />
-      </div>
+      </button>
     </section>
   );
 
@@ -235,15 +292,33 @@ function MagnificentRetreat() {
                 </ul>
               </div>
               
-              <button className="btn-primary">
-                Learn More About Laimani
-              </button>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <a 
+                  href="https://alabastron.org/renewedwoman/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-primary text-center"
+                >
+                  Visit Website
+                </a>
+                <a 
+                  href="https://www.linkedin.com/in/laimani-bidali-777a9b82"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-outline purple-outline text-center"
+                >
+                  LinkedIn Profile
+                </a>
+              </div>
             </div>
             
             <div className="order-1 md:order-2">
-              <div className="facilitator-image-placeholder">
-                <i data-lucide="user" className="text-white/70 w-20 h-20" />
-                <p className="text-white/70 mt-4">Facilitator Photo</p>
+              <div className="facilitator-image-container">
+                <img 
+                  src="images/laimani-bidali.jpg" 
+                  alt="Laimani Bidali - Professional Certified Life Coach"
+                  className="facilitator-image"
+                />
               </div>
             </div>
           </div>
@@ -364,19 +439,33 @@ function MagnificentRetreat() {
         <div className="max-w-5xl mx-auto">
           {/* Pricing Toggle */}
           <div className="flex justify-center mb-12">
-            <div className="bg-gray-100 p-1 rounded-full inline-flex">
+            <div className="bg-gray-100 p-1 rounded-full inline-flex shadow-inner">
               <button 
-                onClick={() => setSelectedPlan('earlybird')}
-                className={`px-6 py-3 rounded-full transition-all ${
-                  selectedPlan === 'earlybird' ? 'bg-gold text-white' : 'text-gray-700'
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setSelectedPlan('earlybird');
+                }}
+                className={`px-6 py-3 rounded-full transition-all duration-300 ease-in-out font-semibold ${
+                  selectedPlan === 'earlybird' 
+                    ? 'bg-gold text-white shadow-md transform scale-105' 
+                    : 'text-gray-700 hover:text-purple'
                 }`}
               >
                 Early Bird
               </button>
               <button 
-                onClick={() => setSelectedPlan('regular')}
-                className={`px-6 py-3 rounded-full transition-all ${
-                  selectedPlan === 'regular' ? 'bg-gold text-white' : 'text-gray-700'
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setSelectedPlan('regular');
+                }}
+                className={`px-6 py-3 rounded-full transition-all duration-300 ease-in-out font-semibold ${
+                  selectedPlan === 'regular' 
+                    ? 'bg-gold text-white shadow-md transform scale-105' 
+                    : 'text-gray-700 hover:text-purple'
                 }`}
               >
                 Regular
@@ -390,10 +479,13 @@ function MagnificentRetreat() {
             <div className="pricing-card">
               <h3 className="text-2xl font-bold text-purple mb-4">Standard</h3>
               <div className="price-display mb-6">
-                <span className="text-4xl font-bold text-gold">
-                  ${selectedPlan === 'earlybird' ? '497' : '597'}
+                <span className="text-4xl font-bold text-gold transition-all duration-300">
+                  KES {selectedPlan === 'earlybird' ? '64,610' : '77,610'}
                 </span>
                 <span className="text-gray-600">/person</span>
+                <div className="text-sm text-gray-500 mt-1">
+                  {selectedPlan === 'earlybird' ? '(Early Bird - Save KES 13,000)' : ''}
+                </div>
               </div>
               <ul className="space-y-3 mb-8">
                 <li className="flex items-start gap-2">
@@ -413,7 +505,11 @@ function MagnificentRetreat() {
                   <span>Retreat materials</span>
                 </li>
               </ul>
-              <button onClick={() => scrollToSection('register')} className="btn-primary w-full">
+              <button type="button" onClick={(e) => {
+                e.preventDefault();
+                setFormData({...formData, accommodation: 'standard'});
+                scrollToSection('register', e);
+              }} className="btn-primary w-full">
                 Select Plan
               </button>
             </div>
@@ -423,10 +519,13 @@ function MagnificentRetreat() {
               <div className="badge">Most Popular</div>
               <h3 className="text-2xl font-bold text-purple mb-4">Premium</h3>
               <div className="price-display mb-6">
-                <span className="text-4xl font-bold text-gold">
-                  ${selectedPlan === 'earlybird' ? '697' : '797'}
+                <span className="text-4xl font-bold text-gold transition-all duration-300">
+                  KES {selectedPlan === 'earlybird' ? '90,610' : '103,610'}
                 </span>
                 <span className="text-gray-600">/person</span>
+                <div className="text-sm text-gray-500 mt-1">
+                  {selectedPlan === 'earlybird' ? '(Early Bird - Save KES 13,000)' : ''}
+                </div>
               </div>
               <ul className="space-y-3 mb-8">
                 <li className="flex items-start gap-2">
@@ -454,7 +553,11 @@ function MagnificentRetreat() {
                   <span>1-on-1 coaching session</span>
                 </li>
               </ul>
-              <button onClick={() => scrollToSection('register')} className="btn-gold w-full">
+              <button type="button" onClick={(e) => {
+                e.preventDefault();
+                setFormData({...formData, accommodation: 'premium'});
+                scrollToSection('register', e);
+              }} className="btn-gold w-full">
                 Select Plan
               </button>
             </div>
@@ -463,10 +566,13 @@ function MagnificentRetreat() {
             <div className="pricing-card">
               <h3 className="text-2xl font-bold text-purple mb-4">VIP Experience</h3>
               <div className="price-display mb-6">
-                <span className="text-4xl font-bold text-gold">
-                  ${selectedPlan === 'earlybird' ? '997' : '1197'}
+                <span className="text-4xl font-bold text-gold transition-all duration-300">
+                  KES {selectedPlan === 'earlybird' ? '129,610' : '155,610'}
                 </span>
                 <span className="text-gray-600">/person</span>
+                <div className="text-sm text-gray-500 mt-1">
+                  {selectedPlan === 'earlybird' ? '(Early Bird - Save KES 26,000)' : ''}
+                </div>
               </div>
               <ul className="space-y-3 mb-8">
                 <li className="flex items-start gap-2">
@@ -498,7 +604,11 @@ function MagnificentRetreat() {
                   <span>Airport transfers</span>
                 </li>
               </ul>
-              <button onClick={() => scrollToSection('register')} className="btn-primary w-full">
+              <button type="button" onClick={(e) => {
+                e.preventDefault();
+                setFormData({...formData, accommodation: 'vip'});
+                scrollToSection('register', e);
+              }} className="btn-primary w-full">
                 Select Plan
               </button>
             </div>
@@ -535,27 +645,51 @@ function MagnificentRetreat() {
     const faqs = [
       {
         question: "Who is this retreat for?",
-        answer: "This retreat is designed for women leaders aged 40+ across Africa who are ready to release what no longer serves them and step into their full radiance. If you're feeling called to transformation and renewal, this space is for you."
+        answer: "This retreat is designed for women leaders aged 40+ across Africa who are ready to release what no longer serves them and step into their full radiance. If you're feeling called to transformation and renewal, this space is for you. Whether you're a business leader, entrepreneur, professional, or someone seeking personal growth, this retreat welcomes all women ready for profound change."
       },
       {
         question: "What's included in the retreat package?",
-        answer: "Your investment includes accommodation, all meals, workshops, meditation sessions, guided activities, retreat materials, and access to all facilities at Hotel Brackenhurst. Premium and VIP packages include additional spa treatments and coaching sessions."
+        answer: "Your investment includes accommodation (based on your selected package), all meals (breakfast, lunch, dinner, and refreshments), all workshops and meditation sessions, guided activities including the tea plantation walk, retreat materials and journal, access to all facilities at Hotel Brackenhurst, and a welcome gift. Premium and VIP packages include additional spa treatments, private coaching sessions, and special amenities."
       },
       {
         question: "How do I get to the venue?",
-        answer: "Hotel Brackenhurst is located in Limuru, just 30 minutes from Nairobi. We can arrange group transportation from Nairobi, or you can drive yourself. VIP package includes airport transfers."
+        answer: "Hotel Brackenhurst is located in Limuru, approximately 30 minutes from Nairobi. We can arrange group transportation from designated pickup points in Nairobi for an additional fee. You can also drive yourself - detailed directions and parking information will be provided upon registration. VIP package includes complimentary airport transfers from Jomo Kenyatta International Airport."
       },
       {
         question: "What should I bring?",
-        answer: "We recommend comfortable clothing for workshops and meditation, walking shoes for the tea plantation tour, a journal, water bottle, and any personal items. A detailed packing list will be sent upon registration."
+        answer: "We recommend bringing comfortable clothing for workshops and meditation sessions, walking shoes for the tea plantation tour, a journal (though one will be provided), water bottle, personal toiletries, any medications you require, and an open heart ready for transformation. A detailed packing list with specific recommendations will be sent to you upon registration confirmation."
+      },
+      {
+        question: "What is the accommodation like?",
+        answer: "Hotel Brackenhurst offers beautiful, comfortable accommodations set in a serene environment. Standard package includes shared rooms (2 per room) with modern amenities. Premium package offers private rooms, and VIP package includes luxury suites with additional space and premium amenities. All rooms have en-suite bathrooms, comfortable bedding, and access to the hotel's facilities."
       },
       {
         question: "Can I get a refund if I need to cancel?",
-        answer: "We offer full refunds up to 30 days before the retreat, 50% refund up to 14 days before, and no refunds within 14 days. However, you may transfer your spot to another woman or apply it to a future retreat."
+        answer: "We offer full refunds up to 30 days before the retreat start date, 50% refund up to 14 days before, and no refunds within 14 days of the retreat. However, you may transfer your spot to another woman at any time, or apply your payment to a future retreat (subject to availability). We understand that circumstances change, and we're here to work with you."
       },
       {
         question: "Is there a payment plan available?",
-        answer: "Yes! We offer flexible payment plans including 2-payment and 3-payment options. You can also save 5% when you pay in full at registration."
+        answer: "Yes! We offer flexible payment plans to make this investment accessible. You can choose to pay in full (and save 5%), split into 2 payments (50% at registration, 50% within 30 days), or 3 monthly payments. All payment plans must be completed before the retreat start date. Contact us for more details on payment arrangements."
+      },
+      {
+        question: "What if I have dietary restrictions?",
+        answer: "Hotel Brackenhurst can accommodate various dietary requirements including vegetarian, vegan, gluten-free, halal, and other specific needs. Please inform us of any dietary restrictions or allergies when you register, and we'll ensure your meals are prepared accordingly. The hotel's kitchen is experienced in handling special dietary requirements."
+      },
+      {
+        question: "Will I have time for personal reflection?",
+        answer: "Absolutely! While the retreat includes structured workshops and activities, we've intentionally built in quiet time for personal reflection, journaling, and rest. The schedule balances group activities with individual time, allowing you to process your experience and integrate the insights you're gaining."
+      },
+      {
+        question: "What happens after the retreat?",
+        answer: "Your transformation journey continues beyond the retreat! All participants receive access to a private online community, follow-up resources, and optional post-retreat coaching sessions. We also offer quarterly virtual check-ins and opportunities to reconnect with your retreat sisters. The connections and insights you gain will continue to support your growth."
+      },
+      {
+        question: "How many women will be at the retreat?",
+        answer: "We intentionally keep the retreat intimate to ensure a powerful, personal experience. The retreat is limited to 20-25 participants, allowing for deep connections, personalized attention, and meaningful group interactions. This size creates a safe, supportive container for transformation while maintaining the energy of a group experience."
+      },
+      {
+        question: "What if I'm new to meditation or personal development work?",
+        answer: "This retreat is perfect for beginners! All activities are designed to be accessible regardless of your experience level. Our facilitator, Laimani Bidali, is skilled at meeting each participant where they are and creating a safe, non-judgmental space. You'll receive guidance and support throughout, and there's no pressure to participate in any activity that doesn't feel right for you."
       }
     ];
 
@@ -569,13 +703,24 @@ function MagnificentRetreat() {
               {faqs.map((faq, index) => (
                 <div key={index} className="faq-item">
                   <button
-                    onClick={() => setActiveAccordion(activeAccordion === index ? null : index)}
-                    className="w-full text-left flex justify-between items-center p-6"
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setActiveAccordion(activeAccordion === index ? null : index);
+                      // Re-render icons after state change
+                      setTimeout(() => {
+                        if (window.lucide && typeof window.lucide.createIcons === 'function') {
+                          window.lucide.createIcons();
+                        }
+                      }, 100);
+                    }}
+                    className="w-full text-left flex justify-between items-center p-6 hover:bg-purple/5 transition-colors"
                   >
                     <h3 className="text-lg font-semibold text-purple pr-4">{faq.question}</h3>
                     <i
                       data-lucide="chevron-down"
-                      className={`text-gold w-6 h-6 transition-transform ${
+                      className={`text-gold w-6 h-6 transition-transform duration-300 flex-shrink-0 ${
                         activeAccordion === index ? 'rotate-180' : ''
                       }`}
                     />
@@ -598,8 +743,10 @@ function MagnificentRetreat() {
   const RegistrationSection = () => {
     const handleSubmit = (e) => {
       e.preventDefault();
+      e.stopPropagation();
       console.log('Form submitted:', formData);
       alert('Thank you for your registration! We will contact you shortly.');
+      return false;
     };
 
     const handleInputChange = (e) => {
@@ -646,7 +793,7 @@ function MagnificentRetreat() {
                     onChange={handleInputChange}
                     required
                     className="form-input"
-                    placeholder="your@email.com"
+                    placeholder="renewingself@alabastron.org"
                   />
                 </div>
               </div>
@@ -662,7 +809,7 @@ function MagnificentRetreat() {
                     onChange={handleInputChange}
                     required
                     className="form-input"
-                    placeholder="+254 xxx xxx xxx"
+                    placeholder="+254 719 504 104 or +254 715 966 700"
                   />
                 </div>
 
@@ -719,7 +866,10 @@ function MagnificentRetreat() {
                   Complete Registration
                   <i data-lucide="arrow-right" className="ml-2 inline w-5 h-5" />
                 </button>
-                <a href="#" className="btn-outline flex-1 text-center">
+                <a 
+                  href="mailto:renewingself@alabastron.org?subject=Discovery Call - Magnificent Retreat&body=Hello, I would like to book a discovery call about the Magnificent Retreat."
+                  className="btn-outline purple-outline flex-1 text-center inline-flex items-center justify-center"
+                >
                   Book a Discovery Call First
                 </a>
               </div>
@@ -745,10 +895,23 @@ function MagnificentRetreat() {
             Join our community of magnificent women. Receive inspiration, 
             updates, and exclusive offers for future retreats.
           </p>
-          <form className="flex flex-col md:flex-row gap-4 max-w-md mx-auto">
+          <form 
+            onSubmit={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              const email = e.target.querySelector('input[type="email"]').value;
+              if (email) {
+                alert('Thank you for subscribing!');
+                e.target.querySelector('input[type="email"]').value = '';
+              }
+              return false;
+            }} 
+            className="flex flex-col md:flex-row gap-4 max-w-md mx-auto"
+          >
             <input
               type="email"
               placeholder="Enter your email"
+              required
               className="flex-1 px-6 py-3 rounded-full text-gray-900 focus:outline-none focus:ring-2 focus:ring-gold"
             />
             <button type="submit" className="btn-gold">
@@ -775,10 +938,10 @@ function MagnificentRetreat() {
           <div>
             <h5 className="font-semibold mb-4">Quick Links</h5>
             <ul className="space-y-2">
-              <li><button onClick={() => scrollToSection('about')} className="text-gray-400 hover:text-gold transition-colors">About</button></li>
-              <li><button onClick={() => scrollToSection('facilitator')} className="text-gray-400 hover:text-gold transition-colors">Facilitator</button></li>
-              <li><button onClick={() => scrollToSection('agenda')} className="text-gray-400 hover:text-gold transition-colors">Agenda</button></li>
-              <li><button onClick={() => scrollToSection('pricing')} className="text-gray-400 hover:text-gold transition-colors">Pricing</button></li>
+              <li><button type="button" onClick={(e) => scrollToSection('about', e)} className="text-gray-400 hover:text-gold transition-colors">About</button></li>
+              <li><button type="button" onClick={(e) => scrollToSection('facilitator', e)} className="text-gray-400 hover:text-gold transition-colors">Facilitator</button></li>
+              <li><button type="button" onClick={(e) => scrollToSection('agenda', e)} className="text-gray-400 hover:text-gold transition-colors">Agenda</button></li>
+              <li><button type="button" onClick={(e) => scrollToSection('pricing', e)} className="text-gray-400 hover:text-gold transition-colors">Pricing</button></li>
             </ul>
           </div>
           
@@ -803,10 +966,46 @@ function MagnificentRetreat() {
           <div>
             <h5 className="font-semibold mb-4">Follow Us</h5>
             <div className="flex gap-4">
-              <a href="#" className="text-gray-400 hover:text-gold transition-colors">FB</a>
-              <a href="#" className="text-gray-400 hover:text-gold transition-colors">IG</a>
-              <a href="#" className="text-gray-400 hover:text-gold transition-colors">TW</a>
-              <a href="#" className="text-gray-400 hover:text-gold transition-colors">LI</a>
+              <a 
+                href="https://www.facebook.com/alabastronnetwork" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-gold transition-colors"
+                title="Follow us on Facebook"
+                aria-label="Facebook"
+              >
+                <i data-lucide="facebook" className="w-6 h-6" />
+              </a>
+              <a 
+                href="https://www.instagram.com/alabastronnetwork" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-gold transition-colors"
+                title="Follow us on Instagram"
+                aria-label="Instagram"
+              >
+                <i data-lucide="instagram" className="w-6 h-6" />
+              </a>
+              <a 
+                href="https://twitter.com/alabastronnetwork" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-gold transition-colors"
+                title="Follow us on Twitter"
+                aria-label="Twitter"
+              >
+                <i data-lucide="twitter" className="w-6 h-6" />
+              </a>
+              <a 
+                href="https://www.linkedin.com/company/alabastron-network" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-gold transition-colors"
+                title="Follow us on LinkedIn"
+                aria-label="LinkedIn"
+              >
+                <i data-lucide="linkedin" className="w-6 h-6" />
+              </a>
             </div>
           </div>
         </div>
@@ -814,8 +1013,28 @@ function MagnificentRetreat() {
         <div className="border-t border-gray-800 mt-12 pt-8 text-center">
           <p className="text-gray-400">
             © 2024 Magnificent Retreat. All rights reserved. | 
-            <a href="#" className="text-gold hover:underline ml-2">Privacy Policy</a> | 
-            <a href="#" className="text-gold hover:underline ml-2">Terms & Conditions</a>
+            <button 
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                alert('Privacy Policy coming soon!');
+              }}
+              className="text-gold hover:underline ml-2 bg-transparent border-none cursor-pointer"
+            >
+              Privacy Policy
+            </button> | 
+            <button 
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                alert('Terms & Conditions coming soon!');
+              }}
+              className="text-gold hover:underline ml-2 bg-transparent border-none cursor-pointer"
+            >
+              Terms & Conditions
+            </button>
           </p>
         </div>
       </div>
@@ -854,10 +1073,16 @@ function MagnificentRetreat() {
         .bg-gold { background-color: var(--gold); }
         .bg-purple { background-color: var(--purple); }
 
+        .logo-icon-small {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
         .nav-link {
-          color: #333;
+          color: var(--purple);
           transition: color 0.3s;
-          font-weight: 500;
+          font-weight: 600;
           font-size: 0.95rem;
           text-transform: uppercase;
           letter-spacing: 0.5px;
@@ -865,6 +1090,16 @@ function MagnificentRetreat() {
         
         .nav-link:hover {
           color: var(--gold);
+        }
+
+        .nav-link-hero {
+          color: white;
+          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-link-hero:hover {
+          color: var(--gold);
+          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         .btn-primary {
@@ -908,6 +1143,17 @@ function MagnificentRetreat() {
           transform: translateY(-1px);
         }
 
+        .btn-primary-nav-hero {
+          background-color: rgba(196, 147, 86, 0.9);
+          backdrop-filter: blur(10px);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary-nav-hero:hover {
+          background-color: rgba(219, 184, 137, 0.95);
+          box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        }
+
         .btn-gold {
           background: var(--gold);
           color: white;
@@ -943,11 +1189,25 @@ function MagnificentRetreat() {
           text-transform: uppercase;
           letter-spacing: 1px;
           font-size: 0.9rem;
+          cursor: pointer;
         }
         
         .btn-outline:hover {
           background-color: white;
           color: var(--purple);
+          text-decoration: none;
+        }
+
+        /* Purple outline variant for non-hero sections */
+        .btn-outline.purple-outline {
+          border: 2px solid var(--purple);
+          color: var(--purple);
+          background: transparent;
+        }
+
+        .btn-outline.purple-outline:hover {
+          background-color: var(--purple);
+          color: white;
         }
 
         .hero-section {
@@ -959,20 +1219,22 @@ function MagnificentRetreat() {
           overflow: hidden;
         }
 
-        .hero-image-placeholder {
+        .hero-image-container {
           position: absolute;
           top: 0;
           left: 0;
           right: 0;
           bottom: 0;
-          background: linear-gradient(135deg, var(--purple), var(--purple-light));
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
         }
 
-        .placeholder-content {
-          text-align: center;
+        .hero-image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
         }
 
         .hero-overlay {
@@ -1020,15 +1282,25 @@ function MagnificentRetreat() {
           background: #f8f9fa;
         }
 
-        .facilitator-image-placeholder {
-          background: linear-gradient(135deg, var(--purple), var(--purple-light));
+        .facilitator-image-container {
+          width: 100%;
           height: 400px;
           border-radius: 8px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
+          overflow: hidden;
           box-shadow: 0 10px 40px rgba(70, 33, 95, 0.2);
+          position: relative;
+        }
+
+        .facilitator-image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+          transition: transform 0.3s ease;
+        }
+
+        .facilitator-image-container:hover .facilitator-image {
+          transform: scale(1.05);
         }
 
         .agenda-card {
@@ -1070,6 +1342,10 @@ function MagnificentRetreat() {
         .pricing-card:hover {
           transform: translateY(-5px);
           box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .price-display {
+          transition: all 0.3s ease-in-out;
         }
 
         .pricing-card.featured {
