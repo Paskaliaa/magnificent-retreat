@@ -96,8 +96,8 @@ function MagnificentRetreat() {
           {/* Logo/Header Placeholder */}
           <div className="mb-8 inline-block">
             <img
-                src="https://raw.githubusercontent.com/Paskaliaa/magnificent-retreat/main/assets/Magnificent%20Logo-01.svg"
-                alt="Magnificent Retreat Logo"
+                src="https://raw.githubusercontent.com/Paskaliaa/magnificent-retreat/main/assets/Magnificent%20Pics.jpg"
+                alt="Radiant woman landscape"
                 className="h-24 w-auto"
               />
           </div>
