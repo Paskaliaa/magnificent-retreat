@@ -35,7 +35,14 @@ function MagnificentRetreat() {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/98 backdrop-blur-md shadow-sm">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-5">
-          <div className="text-2xl font-bold text-purple tracking-wider uppercase">Magnificent</div>
+          <div className="flex items-center">
+            <img
+            src="https://raw.githubusercontent.com/Paskaliaa/magnificent-retreat/main/assets/Magnificent%20Logo-01.svg"
+            alt="Magnificent Retreat Logo"
+            className="h-10 w-auto"
+            />
+
+          </div>
           
           {/* Mobile Menu Button */}
           <button 
