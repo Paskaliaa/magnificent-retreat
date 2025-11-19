@@ -7,7 +7,7 @@ A luxurious, mobile-first website for the Magnificent Women's Renewal Retreat in
 This is a single-page React application designed for a 3-day transformative retreat for women leaders. The website features elegant design, smooth animations, and complete booking functionality.
 
 ### Live Demo
-🔗 [View Live Site](https://yourusername.github.io/magnificent-retreat)
+🔗 [View Live Site](https://paskaliaa.github.io/magnificent-retreat/)
 
 ## 🎨 Features
 
