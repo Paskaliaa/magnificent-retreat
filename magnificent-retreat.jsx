@@ -95,13 +95,11 @@ function MagnificentRetreat() {
         <div className="text-center text-white z-10 animate-fadeIn max-w-4xl">
           {/* Logo/Header Placeholder */}
           <div className="mb-8 inline-block">
-            <div className="logo-placeholder">
-              <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gold">
-                <path d="M12 2L2 7L12 12L22 7L12 2Z"></path>
-                <path d="M2 17L12 22L22 17"></path>
-                <path d="M2 12L12 17L22 12"></path>
-              </svg>
-            </div>
+            <img
+                src="https://raw.githubusercontent.com/Paskaliaa/magnificent-retreat/main/assets/Magnificent%20Logo-01.svg"
+                alt="Magnificent Retreat Logo"
+                className="h-24 w-auto"
+              />
           </div>
           
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight tracking-tight uppercase">
@@ -235,16 +233,17 @@ function MagnificentRetreat() {
                 </ul>
               </div>
               
-              <button className="btn-primary">
-                Learn More About Laimani
-              </button>
+              //<button className="btn-primary">
+                //Learn More About Laimani
+              //</button>
             </div>
             
             <div className="order-1 md:order-2">
-              <div className="facilitator-image-placeholder">
-                <i data-lucide="user" className="text-white/70 w-20 h-20" />
-                <p className="text-white/70 mt-4">Facilitator Photo</p>
-              </div>
+              <img
+              src="https://raw.githubusercontent.com/Paskaliaa/magnificent-retreat/main/assets/laimani-elendi.jpg" 
+              alt="Laimani Bidali - Life Coach"
+              className="w-full h-auto rounded-lg shadow-xl"
+              />         
             </div>
           </div>
         </div>
@@ -965,7 +964,11 @@ function MagnificentRetreat() {
           left: 0;
           right: 0;
           bottom: 0;
-          background: linear-gradient(135deg, var(--purple), var(--purple-light));
+          background-image: url('https://raw.githubusercontent.com/Paskaliaa/magnificent-retreat/main/assets/Magnificent%20Pics.jpg
+');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
           display: flex;
           align-items: center;
           justify-content: center;
